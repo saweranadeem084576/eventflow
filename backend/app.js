@@ -13,7 +13,7 @@ const app = express();
 
 // Uploaded images are served to the separate frontend origin, so relax CORP for static files.
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
-app.use(cors({ origin: config.clientUrl, credentials: true }));
+app.use(cors({ origin: "*", credentials: true }));
 app.use('/uploads', express.static(config.uploadsDir, { maxAge: '7d', immutable: true }));
 app.post('/api/v1/payments/webhook', express.raw({ type: 'application/json' }), require('./controllers/paymentController').webhook);
 app.use(express.json({ limit: '10kb' }));
